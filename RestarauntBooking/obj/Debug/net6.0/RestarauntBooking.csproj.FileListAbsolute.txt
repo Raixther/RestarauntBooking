@@ -1,0 +1,15 @@
+C:\Users\user\source\repos\RestarauntBooking\RestarauntBooking\bin\Debug\net6.0\RestarauntBooking.exe
+C:\Users\user\source\repos\RestarauntBooking\RestarauntBooking\bin\Debug\net6.0\RestarauntBooking.deps.json
+C:\Users\user\source\repos\RestarauntBooking\RestarauntBooking\bin\Debug\net6.0\RestarauntBooking.runtimeconfig.json
+C:\Users\user\source\repos\RestarauntBooking\RestarauntBooking\bin\Debug\net6.0\RestarauntBooking.dll
+C:\Users\user\source\repos\RestarauntBooking\RestarauntBooking\bin\Debug\net6.0\RestarauntBooking.pdb
+C:\Users\user\source\repos\RestarauntBooking\RestarauntBooking\obj\Debug\net6.0\RestarauntBooking.csproj.AssemblyReference.cache
+C:\Users\user\source\repos\RestarauntBooking\RestarauntBooking\obj\Debug\net6.0\RestarauntBooking.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\user\source\repos\RestarauntBooking\RestarauntBooking\obj\Debug\net6.0\RestarauntBooking.AssemblyInfoInputs.cache
+C:\Users\user\source\repos\RestarauntBooking\RestarauntBooking\obj\Debug\net6.0\RestarauntBooking.AssemblyInfo.cs
+C:\Users\user\source\repos\RestarauntBooking\RestarauntBooking\obj\Debug\net6.0\RestarauntBooking.csproj.CoreCompileInputs.cache
+C:\Users\user\source\repos\RestarauntBooking\RestarauntBooking\obj\Debug\net6.0\RestarauntBooking.dll
+C:\Users\user\source\repos\RestarauntBooking\RestarauntBooking\obj\Debug\net6.0\refint\RestarauntBooking.dll
+C:\Users\user\source\repos\RestarauntBooking\RestarauntBooking\obj\Debug\net6.0\RestarauntBooking.pdb
+C:\Users\user\source\repos\RestarauntBooking\RestarauntBooking\obj\Debug\net6.0\RestarauntBooking.genruntimeconfig.cache
+C:\Users\user\source\repos\RestarauntBooking\RestarauntBooking\obj\Debug\net6.0\ref\RestarauntBooking.dll
