@@ -2,6 +2,9 @@
 
 using MassTransit;
 
+using Microsoft.Extensions.Logging;
+
+using Restaraunt.Booking;
 using Restaraunt.Messages;
 
 namespace Restaraunt.Kitchen.Consumers
@@ -12,10 +15,13 @@ namespace Restaraunt.Kitchen.Consumers
 
         private readonly IBus _bus;
 
-        public KitchenTableBookedConsumer(Manager manager, IBus bus)
+        private readonly ILogger<KitchenTableBookedConsumer> _logger;
+
+        public KitchenTableBookedConsumer(Manager manager, IBus bus, ILogger<KitchenTableBookedConsumer> logger)
         {
             _manager = manager;
             _bus = bus;
+            _logger = logger;
         }
 
         public Task Consume(ConsumeContext<ITableBooked> context)

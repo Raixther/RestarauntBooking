@@ -20,6 +20,7 @@ namespace Restaraunt.Notification
 			Host.CreateDefaultBuilder(args)
 			.ConfigureServices((hostContext, services) =>
 			{
+				services.AddLogging();
 				services.AddMassTransit(x=>
 				{
 					x.AddConsumer<NotifierTableBookedConsumer>();

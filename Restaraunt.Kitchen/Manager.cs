@@ -1,4 +1,8 @@
 ﻿using MassTransit;
+using Microsoft.Extensions.Logging;
+
+
+using Restaraunt.Booking;
 using Restaraunt.Messages;
 
 using System;
@@ -13,14 +17,15 @@ namespace Restaraunt.Kitchen
     {
         
         private readonly Random _rand;
-        public Manager()
+
+        private readonly ILogger<Manager> _logger;
+        public Manager(ILogger<Manager> logger)
         {
             _rand = new();
+            _logger = logger;
         }
-
         public bool CheckKitchenReady(Guid orderId, Dish? dish)
         {
-  
 
             var result = _rand.Next(0, 100);
 

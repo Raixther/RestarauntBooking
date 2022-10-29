@@ -17,7 +17,6 @@ namespace Restaraunt.Messages
         }
         public Guid OrderId { get; }
         public bool Ready { get; }
-
 		public int TableId { get; }
 	}
 }

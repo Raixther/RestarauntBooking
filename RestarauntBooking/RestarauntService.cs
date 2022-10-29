@@ -1,6 +1,8 @@
 ﻿
 using MassTransit;
 
+using Microsoft.Extensions.Logging;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,11 +15,13 @@ namespace Restaraunt.Booking
 	{
 		private readonly Restaraunt _restaraunt;
 
-		public RestarauntService(Restaraunt restaraunt)
+		private readonly ILogger<Restaraunt> _logger;
+
+		public RestarauntService(Restaraunt restaraunt, ILogger<Restaraunt> logger)
 		{
 			_restaraunt = restaraunt;
+			_logger = logger;
 		}
-
 		public Task<Table?> BookTable(string command)
 		{
 			CancellationToken token = new();
@@ -40,7 +44,6 @@ namespace Restaraunt.Booking
 			}
 
 		}
-
 		public void Unbook(int tableId)
 		{
 			_restaraunt.Unbook(tableId);

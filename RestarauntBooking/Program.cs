@@ -18,9 +18,13 @@ namespace Restaraunt.Booking
 			Host.CreateDefaultBuilder(args)
 			.ConfigureServices((hostContext, services) =>
 			{
+			
+
 				services.AddMassTransit(x =>
 				{
 					x.AddConsumer<BookingKitchenReadyConsumer>();
+					x.AddConsumer<BookingRequestFaultConsumer>();
+						   
 					x.UsingRabbitMq((context, cfg) =>
 					{
 						cfg.Host("cow-01.rmq2.cloudamqp.com", "fqddpxzb", h =>
@@ -29,7 +33,11 @@ namespace Restaraunt.Booking
 							h.Password("1p4dj690lb4H9N03XHmrOLtXDlLGZaUf");
 						}
 					);
-					});		
+					});
+
+					x.AddSagaStateMachine<RestarauntBookingSaga, RestarauntBooking>().InMemoryRepository().Endpoint(x => x.Temporary = true);
+
+					x.AddDelayedMessageScheduler();
 				});
 				services.AddOptions<MassTransitHostOptions>().Configure(o =>
 				{
@@ -39,6 +47,9 @@ namespace Restaraunt.Booking
 				services.AddTransient<RestarauntService>();
 
 				services.AddTransient<Restaraunt>();
+
+				services.AddTransient<RestarauntBooking>();
+				services.AddTransient<RestarauntBookingSaga>();
 
 				services.AddHostedService<Worker>();
 

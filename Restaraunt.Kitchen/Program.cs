@@ -26,6 +26,7 @@ namespace Restaurant.Kitchen
             Host.CreateDefaultBuilder(args)
                 .ConfigureServices((hostContext, services) =>
                 {
+                    services.AddLogging();
                     services.AddMassTransit(x =>
                     {
                         x.AddConsumer<KitchenTableBookedConsumer>();

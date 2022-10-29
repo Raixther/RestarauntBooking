@@ -36,10 +36,10 @@ namespace Restaraunt.Booking
 				var result =  _restarauntService.BookTable("1");
 
 
-				//забронируем с ответом по смс
+				//забронируем с ответом по см
 				if (!result.IsCanceled)
 				{
-					await _bus.Publish(new TableBooked(NewId.NextGuid(), NewId.NextGuid(), result.Id, true , null),
+					await _bus.Publish(new BookingRequested(NewId.NextGuid(), NewId.NextGuid(), null,  DateTime.Now, TimeSpan.FromSeconds(new Random().Next(7, 15))),
 					context => context.Durable = false, stoppingToken);
 				}
 				else
