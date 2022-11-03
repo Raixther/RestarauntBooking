@@ -15,23 +15,21 @@ namespace Restaraunt.Booking
 	{
 		public MassTransit.State AwaitingBookingApproved{ get; private set; }
 
-		public MassTransit.State AwaitingGuest { get; private set; }// // // 
+		public MassTransit.State AwaitingGuest { get; private set; }
 		
-		public Event<GuestArrive> GuestArrive{ get; private set; }
+		public Event<ITableBooked> GuestArrive{ get; private set; }
 
-		public Event<GuestNotArrive> GuestNotArrive { get; private set; }
+		public Event<ITableBooked> GuestNotArrive { get; private set; }
 
-		public Event<IBookingRequested> BookingRequested{ get; private set; }
+		public Event<IBookingRequest> BookingRequested{ get; private set; }
 
 		public Event<ITableBooked> TableBooked { get; private set; }
 
 		public Event<IKitchenReady> KitchenReady { get; private set; }
 
-		public Event<IBookingRequestFault> BookingRequestFault { get; private set; }
+		public Event<Fault<BookingRequest>> BookingRequestFault { get; private set; }
 
-		public Event BookingApproved{ get; private set; }
-
-	
+		public Event<TableBooked> BookingApproved{ get; private set; }
 
 		public Schedule<RestarauntBooking,IBookingExpire> BookingExpired{ get; private set; }
 
@@ -53,7 +51,7 @@ namespace Restaraunt.Booking
 			 
 			CompositeEvent(() => BookingApproved, x => x.ReadyEventStatus, KitchenReady, TableBooked);
 
-			Event(() => BookingRequestFault, x => x.CorrelateById(context => context.Message.OrderId));
+			Event(() => BookingRequestFault, x => x.CorrelateById(context => context.Message.Message.OrderId));
 
 			Schedule(()=>BookingExpired,
 				x => x.ExpirationId, x =>
@@ -95,10 +93,7 @@ namespace Restaraunt.Booking
 				 .Then(context => Console.WriteLine($"Ошибочка вышла!"))
 				 .Publish(context => (INotify)new Notify(context.Saga.OrderId,
 					 context.Saga.ClientId,
-					 $"Приносим извинения, стол забронировать не получилось."))
-				 .Publish(context => (IBookingCancellation)
-					 new BookingCancellation(context.Message.OrderId))
-				 .Finalize(),
+					 $"Приносим извинения, стол забронировать не получилось.")).Finalize(),
 
 			 When(BookingExpired.Received)
 				 .Then(context => Console.WriteLine($"Отмена заказа {context.Saga.OrderId}"))
@@ -106,8 +101,8 @@ namespace Restaraunt.Booking
 
 
 			During(AwaitingGuest, When(GuestArrive).Unschedule(GuestNotArrived).Finalize(),
-						When(GuestNotArrive).Publish(context => (IBookingCancellation)
-					 new BookingCancellation(context.Message.ClientId)).Finalize());
+						When(GuestNotArrive).Then(context=>context.Saga.TableId=context.Message.TableId).Publish(context => (IBookingCancellation)
+					 new BookingCancellation(context.Message.ClientId, context.Message.TableId)).Finalize());
 		}
 
 	}

@@ -12,11 +12,9 @@ namespace Restaraunt.Booking
 	{
 		private readonly List<Table> _tables = new();
 
-		private readonly ILogger<Restaraunt> _logger;
-		public Restaraunt(ILogger<Restaraunt> logger)
+		public Restaraunt()
 		{
-			_logger = logger;
-
+			
 			for (int i = 0;  i < 10;  i++)
 			{
 				_tables.Add(new Table(i));
@@ -46,7 +44,6 @@ namespace Restaraunt.Booking
 		}
 		public async Task<Table?> BookFreeTableAsync(int countOfPersons)
 		{
-			_logger.LogInformation("Test");
 
 			CancellationToken token = new();
 
@@ -68,25 +65,28 @@ namespace Restaraunt.Booking
 		}
 			#endregion
 
-		public void Unbook(int tableId)
+		public int Unbook(int tableId)
 		{
 			var table = _tables.Find(t => t.Id == tableId);
 			if (table is null)
 			{
 				Console.WriteLine("Столика с данным id не существует");
-				return;
+				return -1;
 			}
 			var result = table.SetState(State.Free);
 			if (result == true)
 			{
 				Console.WriteLine("Заказ столика отменен");
+				return tableId;
 			}
 			else
 			{
 				Console.WriteLine("Столик уже свободен");
+				return tableId;
 			}
 		}
-		//public async void UnbookAsync(int tableId)
+
+//public async void UnbookAsync(int tableId)
 		//{
 			
 		

@@ -8,6 +8,8 @@ namespace Restaraunt.Messages
 {
 	public class GuestArrive
 	{
-	public Guid ClientId{ get; set; }
+		public Guid ClientId { get; set; }
+
+		public int TableId { get; set; }
 	}
 }

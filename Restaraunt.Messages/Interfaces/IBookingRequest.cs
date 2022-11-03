@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Restaraunt.Messages
 {
-	public interface IBookingRequested	
+	public interface IBookingRequest	
 	{
         public Guid OrderId { get; }
 

@@ -18,6 +18,7 @@ namespace Restaraunt.Booking
 
 		public Guid ClientId { get; set; }
 
+		public int TableId {  get; set; }
 		public int ReadyEventStatus{ get; set; }
 
 		public Guid? ExpirationId{ get; set; }

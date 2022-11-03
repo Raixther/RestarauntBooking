@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Restaraunt.Messages
 {
-    public class BookingRequested : IBookingRequested
+    public class BookingRequest : IBookingRequest
     {
-        public BookingRequested(Guid orderId, Guid clientId, Dish? preOrder, DateTime creationTime, TimeSpan waitingTime)
+        public BookingRequest(Guid orderId, Guid clientId, Dish? preOrder, DateTime creationTime, TimeSpan waitingTime)
         {
             OrderId = orderId;
             ClientId = clientId;
@@ -20,9 +20,7 @@ namespace Restaraunt.Messages
         public Guid OrderId { get; }
         public Guid ClientId { get; }
         public Dish? PreOrder { get; }
-
         public DateTime CreationTime { get; }
-
         public TimeSpan WaitingTime { get; }
     }
 }

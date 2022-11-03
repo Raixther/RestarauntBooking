@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 
 namespace Restaraunt.Messages
 {
-	public interface IBookingRequestFault
+	public interface IBookingCancellation
 	{
-		public Guid OrderId { get; set; }
+		public Guid ClientId { get; }
 
+		public int TableId{ get; }
 	}
 }

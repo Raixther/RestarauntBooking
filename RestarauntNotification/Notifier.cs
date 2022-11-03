@@ -14,13 +14,7 @@ namespace Restaraunt.Notification
     {
         //импровизированный кэш для хранения статусов, номера заказа и клиента
         private readonly ConcurrentDictionary<Guid, Tuple<Guid?, Accepted>> _state = new();
-
-        private readonly ILogger<Notifier> _logger;
-
-		public Notifier(ILogger<Notifier> logger)
-		{
-            _logger = logger;     
-		}
+	
         public void Accept(Guid orderId, Accepted accepted, Guid? clientId = null)
         {
             _state.AddOrUpdate(orderId, new Tuple<Guid?, Accepted>(clientId, accepted),

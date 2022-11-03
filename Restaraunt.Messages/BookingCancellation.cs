@@ -6,12 +6,17 @@ using System.Threading.Tasks;
 
 namespace Restaraunt.Messages
 {
-	public class BookingCancellation:IBookingCancellation
+	public class BookingCancellation : IBookingCancellation
 	{
-		public BookingCancellation(Guid orderId)
+		public BookingCancellation(Guid clientId, int tableId)
 		{
-			OrderId = orderId;
+			ClientId = clientId;
+			TableId = tableId;
 		}
-		public Guid OrderId { get; }
+		public Guid ClientId { get; }
+
+		public int TableId { get; }
+
+
 	}
 }

@@ -14,7 +14,6 @@ namespace Restaraunt.Booking.Consumers
         {
             _instance = instance;
         }
-
         public Guid ClientId => _instance.ClientId;
     }
 }

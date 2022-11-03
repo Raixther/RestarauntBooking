@@ -15,18 +15,15 @@ namespace Restaraunt.Kitchen.Consumers
 
         private readonly IBus _bus;
 
-        private readonly ILogger<KitchenTableBookedConsumer> _logger;
-
-        public KitchenTableBookedConsumer(Manager manager, IBus bus, ILogger<KitchenTableBookedConsumer> logger)
+        public KitchenTableBookedConsumer(Manager manager, IBus bus)
         {
             _manager = manager;
             _bus = bus;
-            _logger = logger;
+    
         }
-
         public Task Consume(ConsumeContext<ITableBooked> context)
         {
-            Console.WriteLine("4");
+      
             var result = context.Message.Success;
 
             if (result)
@@ -39,7 +36,6 @@ namespace Restaraunt.Kitchen.Consumers
             }
 			else
 			{
-                Console.WriteLine("7");
                 _bus.Publish<IKitchenReady>(new KitchenReady(context.Message.OrderId, false, context.Message.TableId));
                 return context.ConsumeCompleted;
             }         

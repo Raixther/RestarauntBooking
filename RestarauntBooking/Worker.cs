@@ -35,11 +35,9 @@ namespace Restaraunt.Booking
 				Console.WriteLine("Привет! Желаете забронировать столик?");
 				var result =  _restarauntService.BookTable("1");
 
-
-				//забронируем с ответом по см
 				if (!result.IsCanceled)
 				{
-					await _bus.Publish(new BookingRequested(NewId.NextGuid(), NewId.NextGuid(), null,  DateTime.Now, TimeSpan.FromSeconds(new Random().Next(7, 15))),
+					await _bus.Publish(new BookingRequest(NewId.NextGuid(), NewId.NextGuid(), Dish.Chicken,  DateTime.Now, TimeSpan.FromSeconds(new Random().Next(7, 15))),
 					context => context.Durable = false, stoppingToken);
 				}
 				else

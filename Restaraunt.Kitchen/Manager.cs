@@ -14,26 +14,28 @@ using System.Threading.Tasks;
 namespace Restaraunt.Kitchen
 {
    public class Manager
-    {
-        
+    {       
         private readonly Random _rand;
-
-        private readonly ILogger<Manager> _logger;
-        public Manager(ILogger<Manager> logger)
+        public Manager()
         {
             _rand = new();
-            _logger = logger;
         }
         public bool CheckKitchenReady(Guid orderId, Dish? dish)
         {
 
             var result = _rand.Next(0, 100);
 
-			if (result>90)
+
+			if (dish==Dish.Lasagna)
+			{
+                throw new Exception();
+			}
+
+			if (result>80)
 			{        
                 return true;
             }
-			else
+			else 
 			{
                 return false;
             }

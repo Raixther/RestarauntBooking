@@ -4,6 +4,7 @@ using MassTransit;
 using Microsoft.Extensions.Logging;
 
 using System;
+
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,12 +16,10 @@ namespace Restaraunt.Booking
 	{
 		private readonly Restaraunt _restaraunt;
 
-		private readonly ILogger<Restaraunt> _logger;
 
-		public RestarauntService(Restaraunt restaraunt, ILogger<Restaraunt> logger)
+		public RestarauntService(Restaraunt restaraunt)
 		{
-			_restaraunt = restaraunt;
-			_logger = logger;
+			_restaraunt = restaraunt;		
 		}
 		public Task<Table?> BookTable(string command)
 		{
@@ -29,9 +28,9 @@ namespace Restaraunt.Booking
 			Console.WriteLine("Спасибо за ваше обращение!");
 
 			switch (instruction)
-			{	case 1:
+			{	
+				case 1:
 					var result = _restaraunt.BookFreeTableAsync(1);
-
 					return result;
 				//case 2:
 				//	var result2 = _restaraunt.BookFreeTable(1);
@@ -42,11 +41,10 @@ namespace Restaraunt.Booking
 					Console.WriteLine("Введите пожалуйста 1 или 2");
 					return Task.FromCanceled<Table?>(token);
 			}
-
 		}
-		public void Unbook(int tableId)
+		public int Unbook(int tableId)
 		{
-			_restaraunt.Unbook(tableId);
+			return _restaraunt.Unbook(tableId);
 		}
 	}
 }
