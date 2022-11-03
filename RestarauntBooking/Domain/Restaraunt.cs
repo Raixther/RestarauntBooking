@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.Extensions.Logging;
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,12 +11,15 @@ namespace Restaraunt.Booking
 	public class Restaraunt
 	{
 		private readonly List<Table> _tables = new();
+
 		public Restaraunt()
 		{
+			
 			for (int i = 0;  i < 10;  i++)
 			{
 				_tables.Add(new Table(i));
 			}
+
 		} 
 		#region Booking
 		public bool BookFreeTable(int countOfPersons)
@@ -27,7 +32,7 @@ namespace Restaraunt.Booking
 
 			if (table is null )
 			{
-				Console.WriteLine("К сожалению все столики заняты");
+				Console.WriteLine("К сожалению все столики заняты");				
 				return false;
 			}
 			else
@@ -39,6 +44,7 @@ namespace Restaraunt.Booking
 		}
 		public async Task<Table?> BookFreeTableAsync(int countOfPersons)
 		{
+
 			CancellationToken token = new();
 
 			var table = _tables.FirstOrDefault(t => t.SeatsCount>countOfPersons&&t.State==State.Free);
@@ -59,25 +65,28 @@ namespace Restaraunt.Booking
 		}
 			#endregion
 
-		public void Unbook(int tableId)
+		public int Unbook(int tableId)
 		{
 			var table = _tables.Find(t => t.Id == tableId);
 			if (table is null)
 			{
 				Console.WriteLine("Столика с данным id не существует");
-				return;
+				return -1;
 			}
 			var result = table.SetState(State.Free);
 			if (result == true)
 			{
 				Console.WriteLine("Заказ столика отменен");
+				return tableId;
 			}
 			else
 			{
 				Console.WriteLine("Столик уже свободен");
+				return tableId;
 			}
 		}
-		//public async void UnbookAsync(int tableId)
+
+//public async void UnbookAsync(int tableId)
 		//{
 			
 		

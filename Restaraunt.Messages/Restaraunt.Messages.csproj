@@ -6,4 +6,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="BookingRequestFault.cs" />
+    <Compile Remove="Interfaces\IBookingRequestFault.cs" />
+  </ItemGroup>
+
 </Project>

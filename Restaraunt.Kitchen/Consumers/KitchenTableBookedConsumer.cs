@@ -2,6 +2,9 @@
 
 using MassTransit;
 
+using Microsoft.Extensions.Logging;
+
+using Restaraunt.Booking;
 using Restaraunt.Messages;
 
 namespace Restaraunt.Kitchen.Consumers
@@ -16,11 +19,11 @@ namespace Restaraunt.Kitchen.Consumers
         {
             _manager = manager;
             _bus = bus;
+    
         }
-
         public Task Consume(ConsumeContext<ITableBooked> context)
         {
-            Console.WriteLine("4");
+      
             var result = context.Message.Success;
 
             if (result)
@@ -33,7 +36,6 @@ namespace Restaraunt.Kitchen.Consumers
             }
 			else
 			{
-                Console.WriteLine("7");
                 _bus.Publish<IKitchenReady>(new KitchenReady(context.Message.OrderId, false, context.Message.TableId));
                 return context.ConsumeCompleted;
             }         

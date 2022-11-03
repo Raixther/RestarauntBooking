@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Microsoft.Extensions.Logging;
+using Restaraunt.Notification.Consumers;
+
+using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +14,7 @@ namespace Restaraunt.Notification
     {
         //импровизированный кэш для хранения статусов, номера заказа и клиента
         private readonly ConcurrentDictionary<Guid, Tuple<Guid?, Accepted>> _state = new();
-
+	
         public void Accept(Guid orderId, Accepted accepted, Guid? clientId = null)
         {
             _state.AddOrUpdate(orderId, new Tuple<Guid?, Accepted>(clientId, accepted),

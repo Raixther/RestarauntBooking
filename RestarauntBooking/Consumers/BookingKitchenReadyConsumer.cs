@@ -1,5 +1,7 @@
 ﻿using MassTransit;
 
+using Microsoft.Extensions.Logging;
+
 using Restaraunt.Messages;
 
 using System;
@@ -15,17 +17,25 @@ namespace Restaraunt.Booking.Consumers
 	{
 		private readonly RestarauntService _restarauntService;
 
-		public BookingKitchenReadyConsumer(RestarauntService restarauntService)
+		private readonly ILogger<BookingKitchenReadyConsumer> _logger;
+
+		public BookingKitchenReadyConsumer(RestarauntService restarauntService, ILogger<BookingKitchenReadyConsumer> logger)
 		{
 			_restarauntService = restarauntService;
+			_logger = logger;
 		}
 		public Task Consume(ConsumeContext<IKitchenReady> context)
 		{
 			if (!context.Message.Ready)
 			{
-				Console.WriteLine("8");
 				_restarauntService.Unbook(context.Message.TableId);
 				Console.WriteLine($"Нет возможности заказать стол номер{context.Message.TableId}");
+				_logger.LogInformation($"Нет возможности заказать стол номер{context.Message.TableId}");
+			}
+			else
+			{
+				_restarauntService.BookTable("1");
+				_logger.LogInformation($"Cтол номер{context.Message.TableId} доступен");
 			}
 			return context.ConsumeCompleted;
 		}

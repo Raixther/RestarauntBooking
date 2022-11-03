@@ -1,5 +1,7 @@
 ﻿using MassTransit;
 
+using Microsoft.Extensions.Logging;
+
 using Restaraunt.Messages;
 
 using System;
@@ -14,9 +16,12 @@ namespace Restaraunt.Notification.Consumers
 	{
 		private readonly Notifier _notifier;
 
-		public NotifierTableBookedConsumer(Notifier notifier)
+		private readonly ILogger<NotifierTableBookedConsumer> _logger;
+
+		public NotifierTableBookedConsumer(Notifier notifier, ILogger<NotifierTableBookedConsumer> logger)
 		{
 			_notifier = notifier;
+			_logger = logger;
 		}
 		public Task Consume(ConsumeContext<ITableBooked> context)
 		{
